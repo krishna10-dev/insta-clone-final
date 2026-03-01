@@ -1,0 +1,31 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+.vercel/
+
+# Logs and system files
+*.log
+.DS_Store
+.vscode/
+.idea/
+Instagram_Logs/
+logins.txt
+
+# Vite cache
+.vite/
