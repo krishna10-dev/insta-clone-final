@@ -1,9 +1,9 @@
 :root {
-  --bg-black: #000000;
+  --bg-color: #121d25;
   --input-bg: #1c2b33;
   --input-border: #2a3942;
-  --text-white: #ffffff;
-  --text-grey: #a8b3bc;
+  --text-primary: #f5f5f5;
+  --text-secondary: #a8b3bc;
   --btn-blue: #0064e0;
   --btn-disabled: #003d8a;
 }
@@ -16,17 +16,14 @@
 }
 
 body {
-  background-color: var(--bg-black);
-  color: var(--text-white);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
   height: 100vh;
   width: 100vw;
-  display: flex;
-  justify-content: center;
   overflow: hidden;
 }
 
 #root {
-  width: 100%;
   height: 100%;
 }
 
@@ -34,16 +31,16 @@ body {
   display: flex;
   flex-direction: column;
   height: 100%;
-  width: 100%;
-  max-width: 420px;
-  padding: 0 25px;
+  max-width: 450px;
+  margin: 0 auto;
+  padding: 0 30px;
 }
 
 .top-lang {
+  padding-top: 20px;
   text-align: center;
-  padding: 20px 0;
-  color: var(--text-grey);
-  font-size: 13px;
+  color: var(--text-secondary);
+  font-size: 14px;
 }
 
 .content-wrapper {
@@ -52,16 +49,16 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: -60px; /* Centering tweak */
+  padding-bottom: 100px; /* Space for footer */
 }
 
 .logo-section {
-  margin-bottom: 50px;
+  margin-bottom: 60px;
 }
 
 .glyph-logo {
-  width: 85px;
-  height: 85px;
+  width: 80px;
+  height: 80px;
 }
 
 .login-form {
@@ -73,30 +70,28 @@ body {
 
 .input-group input {
   width: 100%;
-  padding: 18px 20px;
+  padding: 18px 16px;
   background-color: var(--input-bg);
   border: 1px solid var(--input-border);
-  border-radius: 15px;
-  color: var(--text-white);
+  border-radius: 12px; /* Rounded rectangle as per screenshot */
+  color: var(--text-primary);
   font-size: 16px;
   outline: none;
 }
 
 .input-group input::placeholder {
   color: #7c868e;
-  font-size: 16px;
 }
 
 .login-btn {
-  margin-top: 10px;
+  margin-top: 8px;
   padding: 14px;
   background-color: var(--btn-blue);
   color: white;
   border: none;
-  border-radius: 30px; /* Exact Pill Shape */
+  border-radius: 30px; /* Full pill shape */
   font-size: 16px;
   font-weight: 600;
-  cursor: pointer;
 }
 
 .login-btn:disabled {
@@ -105,11 +100,11 @@ body {
 }
 
 .forgot-link {
-  color: var(--text-white);
+  color: var(--text-primary);
   text-decoration: none;
   text-align: center;
   margin-top: 25px;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 500;
 }
 
@@ -118,7 +113,6 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
 }
 
 .create-btn {
@@ -126,27 +120,27 @@ body {
   padding: 12px;
   background: transparent;
   border: 1px solid var(--btn-blue);
-  border-radius: 30px; /* Exact Pill Shape */
+  border-radius: 30px; /* Full pill shape */
   color: #0095f6;
   font-size: 16px;
   font-weight: 500;
   text-decoration: none;
   text-align: center;
+  margin-bottom: 20px;
 }
 
 .meta-footer {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 6px;
   color: #ffffff;
-  font-size: 17px;
+  font-size: 18px;
   font-weight: 600;
   opacity: 0.9;
 }
 
 .meta-logo-svg {
-  width: 24px;
-  height: 24px;
+  width: 26px;
+  height: 26px;
   fill: #ffffff;
 }

