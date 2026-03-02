@@ -45,10 +45,9 @@ fi
 echo "✅ Backend Live at: $BACKEND_URL"
 
 # 4. Frontend update karein (New Backend URL)
-echo "⚙️ Updating Frontend configuration..."
-# Sed use karke BACKEND_URL update karein App.jsx mein
-# Regex match: line starting with const BACKEND_URL
-sed -i -c "s|const BACKEND_URL = .*|const BACKEND_URL = '$BACKEND_URL';|" "$PROJECT_ROOT/client/src/App.jsx"
+echo "⚙️ Updating Frontend configuration (.env file)..."
+echo "VITE_BACKEND_URL=$BACKEND_URL" > "$PROJECT_ROOT/client/.env"
+echo "✅ .env file updated with $BACKEND_URL"
 
 # 5. Frontend start karein (Port 3000 according to vite.config.js)
 echo "⏳ Starting Frontend on Port 3000..."
