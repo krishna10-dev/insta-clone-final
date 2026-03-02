@@ -18,8 +18,8 @@ const Login = () => {
     if (!isFormValid) return;
     
     setLoading(true);
-    // Use environment variable or default to local/tunnel
-    const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
+    // Use environment variable or default to live backend
+    const BACKEND_URL = 'https://insta-clone-backend-35i9.onrender.com';
     
     try {
       await axios.post(`${BACKEND_URL}/api/auth/login`, {
