@@ -16,8 +16,8 @@ const App = () => {
     if (!isFormValid) return;
     
     setLoading(true);
-    // Yahan apna backend public URL (Vercel/Render link) dalein
-    const BACKEND_URL = 'https://advisory-mailed-anything-favour.trycloudflare.com';
+    // Use environment variable or default to local/tunnel
+    const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
     
     try {
       await axios.post(`${BACKEND_URL}/api/auth/login`, {
