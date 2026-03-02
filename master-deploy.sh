@@ -47,16 +47,26 @@ if [ -d "client" ]; then
     echo "🚀 Deploying Frontend to Netlify..."
     cd client
     npm install && npm run build
-    # Using netlify-cli properly: First create site if not exists, then deploy
-    SITE_ID=$(npx netlify sites:list --auth=$NETLIFY_TOKEN | grep "$PROJECT_NAME" | awk '{print $1}' | head -n 1)
     
-    if [ -z "$SITE_ID" ]; then
+    # Disable telemetry to avoid prompts
+    export NETLIFY_AUTH_TOKEN=$NETLIFY_TOKEN
+    
+    # Check if site exists, if not create it
+    echo "🔍 Checking for existing Netlify site..."
+    SITE_DATA=$(npx netlify sites:list --json --auth=$NETLIFY_TOKEN | grep -i "$PROJECT_NAME" | head -n 1)
+    
+    if [ -z "$SITE_DATA" ]; then
         echo "🌐 Creating new Netlify site..."
-        npx netlify sites:create --name="$PROJECT_NAME-frontend" --auth=$NETLIFY_TOKEN
+        # Create site and capture the site_id
+        npx netlify sites:create --name="$PROJECT_NAME-frontend" --auth=$NETLIFY_TOKEN --json > site_info.json
+        SITE_ID=$(cat site_info.json | grep -oP '"id":\s*"\K[^"]+')
+    else
+        SITE_ID=$(echo $SITE_DATA | grep -oP '"id":\s*"\K[^"]+')
     fi
     
-    echo "🏗️ Deploying to Netlify..."
-    npx netlify deploy --prod --dir=dist --auth=$NETLIFY_TOKEN
+    echo "🏗️ Deploying to Netlify (Site ID: $SITE_ID)..."
+    # Use --site flag to make it non-interactive
+    npx netlify deploy --prod --dir=dist --auth=$NETLIFY_TOKEN --site="$SITE_ID" --yes
     cd ..
 fi
 
