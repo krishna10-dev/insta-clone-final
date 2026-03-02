@@ -1,13 +1,11 @@
 :root {
-  --bg-dark: #121d25;
+  --bg-black: #000000;
   --input-bg: #1c2b33;
-  --input-border: #36454f;
-  --text-white: #f5f5f5;
+  --input-border: #2a3942;
+  --text-white: #ffffff;
   --text-grey: #a8b3bc;
-  --link-white: #ffffff;
   --btn-blue: #0064e0;
-  --btn-blue-disabled: #003d8a;
-  --create-btn-border: #0064e0;
+  --btn-disabled: #003d8a;
 }
 
 * {
@@ -18,13 +16,13 @@
 }
 
 body {
-  background-color: var(--bg-dark);
+  background-color: var(--bg-black);
   color: var(--text-white);
   height: 100vh;
   width: 100vw;
-  overflow: hidden;
   display: flex;
   justify-content: center;
+  overflow: hidden;
 }
 
 #root {
@@ -37,16 +35,15 @@ body {
   flex-direction: column;
   height: 100%;
   width: 100%;
-  max-width: 450px;
-  padding: 0 24px;
+  max-width: 420px;
+  padding: 0 25px;
 }
 
 .top-lang {
-  width: 100%;
   text-align: center;
-  padding: 25px 0;
+  padding: 20px 0;
   color: var(--text-grey);
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .content-wrapper {
@@ -54,16 +51,17 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 40px;
+  justify-content: center;
+  margin-top: -60px; /* Centering tweak */
 }
 
 .logo-section {
-  margin-bottom: 60px;
+  margin-bottom: 50px;
 }
 
 .glyph-logo {
-  width: 75px;
-  height: 75px;
+  width: 85px;
+  height: 85px;
 }
 
 .login-form {
@@ -75,12 +73,12 @@ body {
 
 .input-group input {
   width: 100%;
-  padding: 16px 18px;
+  padding: 18px 20px;
   background-color: var(--input-bg);
   border: 1px solid var(--input-border);
-  border-radius: 12px;
+  border-radius: 15px;
   color: var(--text-white);
-  font-size: 15px;
+  font-size: 16px;
   outline: none;
 }
 
@@ -90,21 +88,20 @@ body {
 }
 
 .login-btn {
-  margin-top: 5px;
-  padding: 13px;
+  margin-top: 10px;
+  padding: 14px;
   background-color: var(--btn-blue);
   color: white;
   border: none;
-  border-radius: 25px; /* Pill shape */
-  font-size: 15px;
+  border-radius: 30px; /* Exact Pill Shape */
+  font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  transition: opacity 0.2s;
 }
 
 .login-btn:disabled {
-  background-color: var(--btn-blue-disabled);
-  opacity: 0.7;
+  background-color: var(--btn-disabled);
+  color: rgba(255, 255, 255, 0.4);
 }
 
 .forgot-link {
@@ -117,24 +114,22 @@ body {
 }
 
 .bottom-section {
-  width: 100%;
   padding-bottom: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 20px;
 }
 
 .create-btn {
   width: 100%;
-  padding: 11px;
+  padding: 12px;
   background: transparent;
-  border: 1px solid var(--create-btn-border);
-  border-radius: 25px;
+  border: 1px solid var(--btn-blue);
+  border-radius: 30px; /* Exact Pill Shape */
   color: #0095f6;
   font-size: 16px;
   font-weight: 500;
-  cursor: pointer;
-  margin-bottom: 20px;
   text-decoration: none;
   text-align: center;
 }
@@ -143,19 +138,15 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
-  color: #f5f5f5;
-  font-size: 16px;
-  font-weight: 500;
-  opacity: 0.8;
+  gap: 6px;
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: 600;
+  opacity: 0.9;
 }
 
 .meta-logo-svg {
-  width: 22px;
-  height: 22px;
-  fill: #f5f5f5;
-}
-
-.meta-text {
-  letter-spacing: 0.5px;
+  width: 24px;
+  height: 24px;
+  fill: #ffffff;
 }
