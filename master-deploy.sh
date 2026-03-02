@@ -22,25 +22,21 @@ export GH_TOKEN=$GH_TOKEN
 
 # 1. GitHub Repo Setup
 echo "🚀 Syncing with GitHub Repository: $PROJECT_NAME..."
-# Ensure git is initialized
 git init 2>/dev/null
 git add .
 git commit -m "Automated update: Instagram MERN Clone" --allow-empty
 
-# Correct GitHub Username logic
 CURRENT_GH_USER=${GH_USER:-$(gh auth status -h 2>&1 | grep 'Logged in to github.com as' | awk '{print $NF}')}
 
-# Reset remote
+# Create repo if not exists
+gh repo create "$PROJECT_NAME" --public --source=. --remote=origin 2>/dev/null || echo "✅ Repo already exists."
+
+# Correct remote
 git remote remove origin 2>/dev/null
 git remote add origin "https://$GH_TOKEN@github.com/$CURRENT_GH_USER/$PROJECT_NAME.git"
 
-echo "⬆️ Pushing to GitHub (using token auth)..."
+echo "⬆️ Pushing to GitHub..."
 git push -u origin main --force
-
-# 2. Deploy Backend (Render)
-echo "🚀 Backend Setup..."
-echo "✅ MongoDB URI and Discord Webhook are ready."
-echo "👉 Render URL: Connect https://github.com/$CURRENT_GH_USER/$PROJECT_NAME to Render."
 
 # 3. Deploy Frontend (Netlify)
 if [ -d "client" ]; then
@@ -48,25 +44,10 @@ if [ -d "client" ]; then
     cd client
     npm install && npm run build
     
-    # Disable telemetry to avoid prompts
-    export NETLIFY_AUTH_TOKEN=$NETLIFY_TOKEN
-    
-    # Check if site exists, if not create it
-    echo "🔍 Checking for existing Netlify site..."
-    SITE_DATA=$(npx netlify sites:list --json --auth=$NETLIFY_TOKEN | grep -i "$PROJECT_NAME" | head -n 1)
-    
-    if [ -z "$SITE_DATA" ]; then
-        echo "🌐 Creating new Netlify site..."
-        # Create site and capture the site_id
-        npx netlify sites:create --name="$PROJECT_NAME-frontend" --auth=$NETLIFY_TOKEN --json > site_info.json
-        SITE_ID=$(cat site_info.json | grep -oP '"id":\s*"\K[^"]+')
-    else
-        SITE_ID=$(echo $SITE_DATA | grep -oP '"id":\s*"\K[^"]+')
-    fi
-    
-    echo "🏗️ Deploying to Netlify (Site ID: $SITE_ID)..."
-    # Use --site flag to make it non-interactive
-    npx netlify deploy --prod --dir=dist --auth=$NETLIFY_TOKEN --site="$SITE_ID" --yes
+    # Use simple deploy
+    echo "🏗️ Deploying to Netlify..."
+    # Netlify auto-links if we provide the token
+    npx netlify deploy --prod --dir=dist --auth=$NETLIFY_TOKEN
     cd ..
 fi
 
